@@ -22,7 +22,9 @@ const userController = {
             await client.query(query, [oauth_id, problem_id]); // Parameterized query to avoid SQL injection
             client.release(); // Release the client back to the pool
             // Respond with a success message or perform any other action
-            res.status(201).json({ message: 'Problem added to user board successfully' });
+            res
+                .status(201)
+                .json({ message: 'Problem added to user board successfully' });
         }
         catch (err) {
             console.error('Database query error', err);
@@ -30,7 +32,7 @@ const userController = {
         }
     },
     get_UserBoardProblems: async (_req, res, next) => {
-        console.log('Fetching all problems on user\'s board');
+        console.log("Fetching all problems on user's board");
         // Extract oauth_id from res.locals.decodedToken
         const oauth_id = res.locals.decodedToken.uid;
         if (!oauth_id) {
@@ -51,7 +53,7 @@ const userController = {
             const result = await client.query(query, [oauth_id]); // Parameterized query to avoid SQL injection
             client.release(); // Release the client back to the pool
             if (result.rows.length === 0) {
-                res.status(200).json({ message: 'No problems found on user\'s board' });
+                res.status(200).json({ message: "No problems found on user's board" });
                 return;
             }
             // Respond with the list of problems on the user's board, including completion status and times_completed
@@ -60,7 +62,7 @@ const userController = {
         }
         catch (err) {
             console.error('Database query error', err);
-            res.status(500).json({ error: 'Failed to fetch user\'s board problems' });
+            res.status(500).json({ error: "Failed to fetch user's board problems" });
         }
     },
     // Function to update the completion status to a problem on the users board
@@ -89,7 +91,9 @@ const userController = {
                 return;
             }
             // Respond with a success message
-            res.status(200).json({ message: 'Problem marked as completed successfully' });
+            res
+                .status(200)
+                .json({ message: 'Problem marked as completed successfully' });
         }
         catch (err) {
             console.error('Database query error', err);
@@ -101,7 +105,7 @@ const userController = {
         // Extract oauth_id from req.body
         const { oauth_id } = req.body;
         // Log oauth_id for debugging
-        console.log("oauth_id: ", oauth_id);
+        console.log('oauth_id: ', oauth_id);
         if (!oauth_id) {
             res.status(400).json({ error: 'Missing required field: oauth_id' });
             return;

@@ -22,7 +22,7 @@ const Login = () => {
       .then((result) => {
         setUser(result.user);
         console.log("GOOGLE:", result.user.uid);
-        tryLogin({oauth_id : result.user.uid});
+        tryLogin({ oauth_id: result.user.uid });
         navigate("/home/myboard");
       })
       .catch((error) => {
@@ -36,7 +36,7 @@ const Login = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         setUser(result.user);
-        tryLogin({oauth_id : result.user.uid});
+        tryLogin({ oauth_id: result.user.uid });
         console.log("GitHub:", result.user.uid);
         navigate("/home/myboard");
       })
